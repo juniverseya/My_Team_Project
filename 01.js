@@ -5,68 +5,51 @@ const rl = readline.createInterface({
     output : process.stdout
 });
 
-let numbers = "";
+let numbers = [];
 while (numbers.length < 3) {
     let num = Math.floor(Math.random ()*10);
     if (numbers.includes(num) === false) {
-        numbers = numbers.concat(num);
+        numbers = numbers.push(num);
     }
 }
 
-
-
-
-console.log('컴퓨터가 숫자를 생성하였습니다. 답을 맞춰보세요!');
-let count = 0;
-let answer = 0;
-
-while (answer !== numbers) {
+function solution(numbers, guess) {
     let numS = 0;
     let numB = 0;
     
-    count++;
-    answer = rl.question(`${count}번째 시도 : `, (line) => {
-        rl.close();
-    })
-    let arrNum = [...numbers];
-    let arrAnswer = Array.from(String(answer));
-    
     for (let i = 0; i < numbers.length; i++){ 
-        for (let j = 0; j < answer.length; j++) {
-            if (arrAnswer[j] === arrNum[i] && i === j) {
-                numS++;
-            } else if (arrAnswer[j] === arrNum[i] && i !== j){
-                numB++;
-            }
+        if (numbers[i] === guess[i]) {
+            numS++;
+        } else if (numbers.includes(guess[i])) {
+            numB++;
         }
-    console.log(`${numB}B${numS}S`);
+    return {numS, numB};
     }
 }
-console.log(`${count}번만에 맞히셨습니다.`);
-console.log('게임을 종료합니다.');
+
+let count = 1;
+console.log('컴퓨터가 숫자를 생성하였습니다. 답을 맞춰보세요!');
+
+function Game() {
+    rl.question(`${count}번째 시도 : `, (input) => {
+    count++;
+    const guess = input.split("").map(Number);
+    const result = solution(numbers, guess);
+    if (result.numS === 3) {
+        console.log('3S');
+        console.log(`${count-1}번만에 맞히셨습니다.`);
+        console.log('게임을 종료합니다');
+        rl.close();
+    } else {
+        console.log(`${numS}S${numB}B`);
+        Game()
+    }
+    })
+}
+
+Game();
 
 
-
-// let count = 0 
-// function solution(answer) {
-//     count++;
-//     let arrNum = [...numbers];
-//     let arrAnswer = Array.from(String(answer));
-
-//     let numS = 0;
-//     let numB = 0;
-//     for (let i = 0; i < numbers.length; i++){ 
-//         for (let j = 0; j < answer.length;j++) {
-//             if (arrAnswer[j] === arrNum[i] && i === j) {
-//                 numS++;
-//             } else if (arrAnswer[j] === arrNum[i] && i !== j){
-//                 numB++;
-//             }
-//         }
-//     console.log(`${numB}B${numS}S`);
-//     }
-
-// }
 
 
     
