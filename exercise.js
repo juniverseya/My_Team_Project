@@ -7,3 +7,4 @@ while (numbers.length < 3) {
 }
 
 console.log(numbers);
+console.log(numbers.split("").map(Number));
