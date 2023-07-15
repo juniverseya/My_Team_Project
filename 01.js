@@ -1,6 +1,6 @@
 let numbers = "";
 while (numbers.length < 3) {
-    let num = Math.floor(Math.random ()*9);
+    let num = Math.floor(Math.random ()*10);
     if (numbers.includes(num) === false) {
         numbers = numbers.concat(num);
     }
