@@ -27,8 +27,8 @@ function StrikeBallcount(answer, guess) { //S,B개수 파악 함수
         strike++; //strike변수 1증가
         } else if (answer.includes(guess[i])) { //자릿수는 다르지만 포함되어 있다면
         ball++; //ball변수 1증가
-}
-}
+        }
+    }
 return { strike, ball }; //strike, ball 개수 반환
 }
 
@@ -37,25 +37,23 @@ let attempts = 1; //시도 횟수 측정하기 위한 변수 1로 초기화
 console.log('컴퓨터가 숫자를 생성하였습니다. 답을 맞춰보세요!'); //문제의 첫줄 출력
 
 function Startgame() { //게임시작 함수
-rl.question(attempts + '번째 시도 : ', (input) => { //r1.question()을 사용하여 (attempts)번째 시도 : 출력 후 input입력받기
-attempts++; //시도횟수인 attempts 증가
-const guess = input.split('').map(Number);
-const result = StrikeBallcount(answer, guess);
-if (result.strike === 3) { //3strike일때
-console.log('3S'); //3S만 출력해주고
-console.log(attempts-1 + `번만에 맞히셨습니다.`);
-console.log('게임을 종료합니다.'); //시도한 횟수와 게임 종료 문구 출력해주기
-rl.close(); //게임 종료
-}
-else if(result.ball===3){ //ball만 3번일때에는
-console.log("3B"); // 3B만 출력해주기
-Startgame(); //다시 함수 호출하여 게임 반복
-}
-else { //3strike, 3ball이 아닐때는
-console.log(`${result.strike}S${result.ball}B`); //s,b의 갯수 출력후
-Startgame(); //다시 함수 호출하여 게임 반복
-}
-});
+    rl.question(attempts + '번째 시도 : ', (input) => { //r1.question()을 사용하여 (attempts)번째 시도 : 출력 후 input입력받기
+    attempts++; //시도횟수인 attempts 증가
+    const guess = input.split('').map(Number);
+    const result = StrikeBallcount(answer, guess);
+    if (result.strike === 3) { //3strike일때
+        console.log('3S'); //3S만 출력해주고
+        console.log(attempts-1 + `번만에 맞히셨습니다.`);
+        console.log('게임을 종료합니다.'); //시도한 횟수와 게임 종료 문구 출력해주기
+        rl.close(); //게임 종료
+        } else if(result.ball===3){ //ball만 3번일때에는
+        console.log("3B"); // 3B만 출력해주기
+        Startgame(); //다시 함수 호출하여 게임 반복
+        } else { //3strike, 3ball이 아닐때는
+        console.log(`${result.strike}S${result.ball}B`); //s,b의 갯수 출력후
+        Startgame(); //다시 함수 호출하여 게임 반복
+        }
+    });
 }
 
 Startgame(); //게임 시작
